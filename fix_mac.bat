@@ -48,9 +48,12 @@ if "%macName%" == "" goto menu
 
 cd "C:\Program Files\Oracle\VirtualBox\"
 
+echo =============================================================
 echo Select your processor type
 echo 1. Intel Processor
 echo 2. AMD Processor
+echo =============================================================
+
 set /p proc="Enter your choice (1/2): "
 
 if "%proc%" == "1" goto :apply_intel_fix
@@ -63,27 +66,28 @@ goto menu
 
 
 :apply_intel_fix
-:: VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
-:: VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
-echo "Intel fix applied"
+VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
+echo "Intel fix applied!!!"
 pause
 goto menu
 
+
 :apply_amd_fix
-:: VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
-:: VBoxManage modifyvm "%macName%" --cpu-profile "Intel Core i7-6700K"
-:: VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
-echo "Amd fix applied"
+VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+VBoxManage modifyvm "%macName%" --cpu-profile "Intel Core i7-6700K"
+VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
+echo "Amd fix applied!!!"
 pause
 goto menu
 
@@ -93,6 +97,13 @@ goto menu
 :: Take User Inputs
 set /p macName="Enter the Virtual Machine Name: "
 if "%macName%" == "" goto menu
+
+
+echo =============================================================
+echo Resolution Available
+echo 1280x720 | 1920x1080 | 2560x1440 | 2048x1080 | 3840x2160
+echo    HD         FHD        QHD          2K          4K
+echo =============================================================
 
 set /p setRes="Enter resolution (default: 1920x1080): "
 
