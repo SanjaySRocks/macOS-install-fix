@@ -18,7 +18,7 @@ echo		Author: sanjay singh
 echo 		github.com/sanjaysrocks
 echo =====================================
 echo 1. Disable HyperV
-echo 2. Make Virtual Box MacOS
+echo 2. Fix Virtual Box
 echo 3. Fix Resolution
 echo 0. Exit
 echo =====================================
@@ -48,20 +48,48 @@ if "%macName%" == "" goto menu
 
 cd "C:\Program Files\Oracle\VirtualBox\"
 
-VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
-VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
-VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
-VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
-VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
-VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
+echo Select your processor type
+echo 1. Intel Processor
+echo 2. AMD Processor
+set /p proc="Enter your choice (1/2): "
+
+if "%proc%" == "1" goto :apply_intel_fix
+if "%proc%" == "2" goto :apply_amd_fix
+if "%proc%" == "" goto menu
+
 
 pause
 goto menu
 
 
-:fix_res
+:apply_intel_fix
+:: VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+:: VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
+echo "Intel fix applied"
+pause
+goto menu
 
+:apply_amd_fix
+:: VBoxManage.exe modifyvm "%macName%" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+:: VBoxManage modifyvm "%macName%" --cpu-profile "Intel Core i7-6700K"
+:: VBoxManage setextradata "%macName%" "VBoxInternal/TM/TSCMode" "RealTSCOffset"
+echo "Amd fix applied"
+pause
+goto menu
+
+
+
+:fix_res
 :: Take User Inputs
 set /p macName="Enter the Virtual Machine Name: "
 if "%macName%" == "" goto menu
